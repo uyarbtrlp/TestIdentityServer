@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31105.61
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestIdentityServer.API1", "TestIdentityServer.API1\TestIdentityServer.API1.csproj", "{3ECCB5F4-B2CA-4E7F-8288-20A7F5253014}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestIdentityServer.API2", "TestIdentityServer.API2\TestIdentityServer.API2.csproj", "{C8C39768-EFA5-408A-B75E-BEB74752715F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2A0B8940-C4DE-4E14-90DF-0445F8DF4C58}"
+	ProjectSection(SolutionItems) = preProject
+		Ports.txt = Ports.txt
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestIdentityServer.AuthServer", "TestIdentityServer.AuthServer\TestIdentityServer.AuthServer.csproj", "{F21D7760-E124-4D11-ABED-86EDE751A76B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestIdentityServer.Client1", "TestIdentityServer.Client1\TestIdentityServer.Client1.csproj", "{C9069F2C-DBD9-4921-9F9B-AFDAE0C08225}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestIdentityServer.Client2", "TestIdentityServer.Client2\TestIdentityServer.Client2.csproj", "{DB76468A-7B1B-4CB8-9F66-0DD9BDD06FEF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3ECCB5F4-B2CA-4E7F-8288-20A7F5253014}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ECCB5F4-B2CA-4E7F-8288-20A7F5253014}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ECCB5F4-B2CA-4E7F-8288-20A7F5253014}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ECCB5F4-B2CA-4E7F-8288-20A7F5253014}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8C39768-EFA5-408A-B75E-BEB74752715F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8C39768-EFA5-408A-B75E-BEB74752715F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8C39768-EFA5-408A-B75E-BEB74752715F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8C39768-EFA5-408A-B75E-BEB74752715F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F21D7760-E124-4D11-ABED-86EDE751A76B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F21D7760-E124-4D11-ABED-86EDE751A76B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F21D7760-E124-4D11-ABED-86EDE751A76B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F21D7760-E124-4D11-ABED-86EDE751A76B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9069F2C-DBD9-4921-9F9B-AFDAE0C08225}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9069F2C-DBD9-4921-9F9B-AFDAE0C08225}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9069F2C-DBD9-4921-9F9B-AFDAE0C08225}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9069F2C-DBD9-4921-9F9B-AFDAE0C08225}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB76468A-7B1B-4CB8-9F66-0DD9BDD06FEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB76468A-7B1B-4CB8-9F66-0DD9BDD06FEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB76468A-7B1B-4CB8-9F66-0DD9BDD06FEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB76468A-7B1B-4CB8-9F66-0DD9BDD06FEF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C341EA1A-F2B2-440D-8B6F-08E193282C62}
+	EndGlobalSection
+EndGlobal
