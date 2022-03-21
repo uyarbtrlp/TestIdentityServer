@@ -85,11 +85,34 @@ namespace TestIdentityServer.AuthServer
                     RequirePkce = false,
                     RedirectUris = new List<string>{"https://localhost:5006/signin-oidc"},
                     PostLogoutRedirectUris = new List<string>{"https://localhost:5006/signout-callback-oidc" },
-                    AllowedScopes = {IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile, "api1.read", IdentityServerConstants.StandardScopes.OfflineAccess},
+                    AllowedScopes = {IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile,
+                        "api1.read", IdentityServerConstants.StandardScopes.OfflineAccess, "CountryAndCity","Roles"},
                     AccessTokenLifetime = 2*60*60,
                     AllowOfflineAccess = true,
                     RefreshTokenUsage = TokenUsage.ReUse,
                     RefreshTokenExpiration = TokenExpiration.Absolute,
+                    RequireConsent = false,
+                    AbsoluteRefreshTokenLifetime =  (int)(DateTime.Now.AddDays(60)-DateTime.Now).TotalSeconds,
+                },
+                new Client()
+                {
+                    ClientId = "Client2-Mvc",
+                    ClientName = "Client2-Mvc Application",
+                    ClientSecrets = new []
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                    AllowedGrantTypes = GrantTypes.Hybrid,
+                    RequirePkce = false,
+                    RedirectUris = new List<string>{"https://localhost:5011/signin-oidc"},
+                    PostLogoutRedirectUris = new List<string>{"https://localhost:5011/signout-callback-oidc" },
+                    AllowedScopes = {IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile,
+                        "api1.read","api2.read", IdentityServerConstants.StandardScopes.OfflineAccess, "CountryAndCity","Roles"},
+                    AccessTokenLifetime = 2*60*60,
+                    AllowOfflineAccess = true,
+                    RefreshTokenUsage = TokenUsage.ReUse,
+                    RefreshTokenExpiration = TokenExpiration.Absolute,
+                    RequireConsent = false,
                     AbsoluteRefreshTokenLifetime =  (int)(DateTime.Now.AddDays(60)-DateTime.Now).TotalSeconds,
                 }
             };
@@ -101,6 +124,26 @@ namespace TestIdentityServer.AuthServer
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
+                new IdentityResource()
+                {
+                    Name = "CountryAndCity",
+                    DisplayName = "Country and City",
+                    Description = "Country and city of user",
+                    UserClaims = new []
+                    {
+                        "country", "city"
+                    }
+                },
+                 new IdentityResource()
+                {
+                    Name = "Roles",
+                    DisplayName = "Role",
+                    Description = "Roles of user",
+                    UserClaims = new []
+                    {
+                        "role"
+                    }
+                }
 
             };
         }
@@ -113,14 +156,20 @@ namespace TestIdentityServer.AuthServer
                 { SubjectId = "1", Username = "baturalp", Password = "password", Claims = new List<Claim>()
                     {
                         new Claim("given_name","Baturalp"),
-                        new Claim("family_name","Uyar")
+                        new Claim("family_name","Uyar"),
+                        new Claim("country","Turkey"),
+                        new Claim("city","Ankara"),
+                        new Claim("role","admin")
                     }
                 },
                 new TestUser
                 { SubjectId = "2", Username = "begum", Password = "password", Claims = new List<Claim>()
                     {
                         new Claim("given_name","Begüm"),
-                        new Claim("family_name","Uyar")
+                        new Claim("family_name","Uyar"),
+                        new Claim("country","Turkey"),
+                        new Claim("city","Istanbul"),
+                        new Claim("role","customer")
                     }
                 }
             };

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TestIdentityServer.Client1.Services;
 
 namespace TestIdentityServer.Client1
 {
@@ -23,11 +25,18 @@ namespace TestIdentityServer.Client1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
+            services.AddScoped<IApiResourceHttpClient, ApiResourceHttpClient>();
+
             services.AddAuthentication(opt =>
             {
                 opt.DefaultScheme = "Cookies";
                 opt.DefaultChallengeScheme = "oidc";
-            }).AddCookie("Cookies").AddOpenIdConnect("oidc",config =>
+            }).AddCookie("Cookies",opt=> {
+
+                opt.AccessDeniedPath = "/Home/AccessDenied";
+            
+            }).AddOpenIdConnect("oidc",config =>
             {
                 config.SignInScheme = "Cookies";
                 config.Authority = "https://localhost:5001";
@@ -38,6 +47,17 @@ namespace TestIdentityServer.Client1
                 config.SaveTokens = true;
                 config.Scope.Add("api1.read");
                 config.Scope.Add("offline_access");
+                config.Scope.Add("CountryAndCity");
+                config.Scope.Add("Roles");
+                config.ClaimActions.MapUniqueJsonKey("country", "country");
+                config.ClaimActions.MapUniqueJsonKey("city", "city");
+                config.ClaimActions.MapUniqueJsonKey("role", "role");
+
+                config.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                {
+                    RoleClaimType = "role"
+                };
+
             });
             services.AddControllersWithViews();
         }

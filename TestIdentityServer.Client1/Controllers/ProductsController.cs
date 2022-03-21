@@ -1,6 +1,9 @@
 ﻿using IdentityModel.Client;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,40 +11,25 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using TestIdentityServer.Client1.Models;
+using TestIdentityServer.Client1.Services;
 
 namespace TestIdentityServer.Client1.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         private readonly IConfiguration _configuration;
-        public ProductsController(IConfiguration configuration)
+        private readonly IApiResourceHttpClient _apiResourceHttpClient;
+        public ProductsController(IConfiguration configuration, IApiResourceHttpClient apiResourceHttpClient)
         {
             _configuration = configuration;
+            _apiResourceHttpClient = apiResourceHttpClient;
         }
         public async Task<IActionResult> Index()
         {
             List<Product> products = new List<Product>();
-            HttpClient httpClient = new HttpClient();
 
-            var discovery = await httpClient.GetDiscoveryDocumentAsync("https://localhost:5001");
-            if (discovery.IsError)
-            {
-                //log
-            }
-            ClientCredentialsTokenRequest clientCredentialsTokenRequest = new ClientCredentialsTokenRequest();
-
-            clientCredentialsTokenRequest.ClientId = _configuration["Client:ClientId"];
-            clientCredentialsTokenRequest.ClientSecret = _configuration["Client:ClientSecret"];
-            clientCredentialsTokenRequest.Address = discovery.TokenEndpoint;
-            var token =  await httpClient.RequestClientCredentialsTokenAsync(clientCredentialsTokenRequest);
-
-            if (token.IsError)
-            {
-                //log
-            }
-
-            httpClient.SetBearerToken(token.AccessToken);
-
+            var httpClient = await _apiResourceHttpClient.GetHttpClient();
             var response = await httpClient.GetAsync("https://localhost:5016/api/products/getproducts");
             if (response.IsSuccessStatusCode)
             {

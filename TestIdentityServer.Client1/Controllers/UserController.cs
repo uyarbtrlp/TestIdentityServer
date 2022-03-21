@@ -70,5 +70,16 @@ namespace TestIdentityServer.Client1.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [Authorize(Roles = "admin")]
+        public IActionResult AdminAction()
+        {
+            return View();
+        }
+        [Authorize(Roles = "admin,customer")]
+        public IActionResult CustomerAction()
+        {
+            return View();
+        }
     }
 }
