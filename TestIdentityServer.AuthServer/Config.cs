@@ -86,6 +86,7 @@ namespace TestIdentityServer.AuthServer
                     RedirectUris = new List<string>{"https://localhost:5006/signin-oidc"},
                     PostLogoutRedirectUris = new List<string>{"https://localhost:5006/signout-callback-oidc" },
                     AllowedScopes = {IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile,
+                    IdentityServerConstants.StandardScopes.Email,
                         "api1.read", IdentityServerConstants.StandardScopes.OfflineAccess, "CountryAndCity","Roles"},
                     AccessTokenLifetime = 2*60*60,
                     AllowOfflineAccess = true,
@@ -114,6 +115,19 @@ namespace TestIdentityServer.AuthServer
                     RefreshTokenExpiration = TokenExpiration.Absolute,
                     RequireConsent = false,
                     AbsoluteRefreshTokenLifetime =  (int)(DateTime.Now.AddDays(60)-DateTime.Now).TotalSeconds,
+                },
+                new Client()
+                {
+                    ClientId = "js-client",
+                    RequireClientSecret = false,
+                    ClientName= "Js Client (Angular)",
+                    AllowedScopes = {IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile,IdentityServerConstants.StandardScopes.Email,
+                        "api1.read","api2.read", IdentityServerConstants.StandardScopes.OfflineAccess, "CountryAndCity","Roles"},
+                    RedirectUris ={"http://localhost:4200/callback"},
+                    AllowedCorsOrigins={"http://localhost:4200"},
+                    PostLogoutRedirectUris = {"http://localhost:4200"},
+                    AllowedGrantTypes = GrantTypes.Code,
+                    
                 }
             };
         }
@@ -123,6 +137,7 @@ namespace TestIdentityServer.AuthServer
             return new List<IdentityResource>()
             {
                 new IdentityResources.OpenId(),
+                new IdentityResources.Email(),
                 new IdentityResources.Profile(),
                 new IdentityResource()
                 {

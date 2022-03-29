@@ -49,13 +49,15 @@ namespace TestIdentityServer.Client1
                 config.Scope.Add("offline_access");
                 config.Scope.Add("CountryAndCity");
                 config.Scope.Add("Roles");
+                config.Scope.Add("email");
                 config.ClaimActions.MapUniqueJsonKey("country", "country");
                 config.ClaimActions.MapUniqueJsonKey("city", "city");
                 config.ClaimActions.MapUniqueJsonKey("role", "role");
 
                 config.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
                 {
-                    RoleClaimType = "role"
+                    RoleClaimType = "role",
+                    NameClaimType = "name"
                 };
 
             });
