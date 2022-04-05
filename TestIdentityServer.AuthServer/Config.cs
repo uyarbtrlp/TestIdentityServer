@@ -95,6 +95,24 @@ namespace TestIdentityServer.AuthServer
                     RequireConsent = false,
                     AbsoluteRefreshTokenLifetime =  (int)(DateTime.Now.AddDays(60)-DateTime.Now).TotalSeconds,
                 },
+                 new Client()
+                {
+                    ClientId = "Client1-ResourceOwner-Mvc",
+                    ClientSecrets = new []
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                    ClientName = "Client1-ResourceOwner-Mvc Application",
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    AllowedScopes = {IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile,
+                    IdentityServerConstants.StandardScopes.Email,
+                        "api1.read", IdentityServerConstants.StandardScopes.OfflineAccess, "CountryAndCity","Roles"},
+                    AccessTokenLifetime = 2*60*60,
+                    AllowOfflineAccess = true,
+                    RefreshTokenUsage = TokenUsage.ReUse,
+                    RefreshTokenExpiration = TokenExpiration.Absolute,
+                    AbsoluteRefreshTokenLifetime =  (int)(DateTime.Now.AddDays(60)-DateTime.Now).TotalSeconds,
+                },
                 new Client()
                 {
                     ClientId = "Client2-Mvc",

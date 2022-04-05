@@ -39,6 +39,7 @@ namespace TestIdentityServer.AuthServer
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 //.AddTestUsers(Config.GetUsers().ToList())
                 .AddProfileService<CustomProfileService>()
+                .AddResourceOwnerValidator<ResourceOwnerPasswordValidator>()
                 .AddDeveloperSigningCredential();
                 
             services.AddControllersWithViews();
