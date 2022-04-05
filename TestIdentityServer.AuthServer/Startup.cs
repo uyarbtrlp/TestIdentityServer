@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using TestIdentityServer.AuthServer.Models;
 using TestIdentityServer.AuthServer.Repository;
@@ -32,11 +33,21 @@ namespace TestIdentityServer.AuthServer
             {
                 opt.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
+
+            var assemblyName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
             services.AddIdentityServer()
-                .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryApiScopes(Config.GetApiScopes())
-                .AddInMemoryClients(Config.GetClients())
-                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddConfigurationStore(opt =>
+                {
+                    opt.ConfigureDbContext = c => c.UseSqlServer(Configuration.GetConnectionString("Default"), sql => sql.MigrationsAssembly(assemblyName));
+                })
+                .AddOperationalStore(opt =>
+                {
+                    opt.ConfigureDbContext = c => c.UseSqlServer(Configuration.GetConnectionString("Default"), sql => sql.MigrationsAssembly(assemblyName));
+                })
+                //.AddInMemoryApiResources(Config.GetApiResources())
+                //.AddInMemoryApiScopes(Config.GetApiScopes())
+                //.AddInMemoryClients(Config.GetClients())
+                //.AddInMemoryIdentityResources(Config.GetIdentityResources())
                 //.AddTestUsers(Config.GetUsers().ToList())
                 .AddProfileService<CustomProfileService>()
                 .AddResourceOwnerValidator<ResourceOwnerPasswordValidator>()

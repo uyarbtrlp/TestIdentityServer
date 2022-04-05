@@ -39,7 +39,7 @@ namespace TestIdentityServer.Client1.Controllers
             var refreshToken = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.RefreshToken);
             var token = await client.RequestRefreshTokenAsync(new RefreshTokenRequest() {
             
-                ClientId = "Client1-Mvc",
+                ClientId = "Client1-ResourceOwner-Mvc",
                 ClientSecret = "secret",
                 RefreshToken = refreshToken,
                 Address = discovery.TokenEndpoint
